@@ -1,0 +1,35 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ex: <http://example.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:DeviceShape a sh:NodeShape ;
+    sh:targetClass ex:Device ;
+    sh:property [
+        sh:path ex:NAME ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ex:PSI_Voltage ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ex:PSI_Current ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ex:ETH_Temperature ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ex:XMA_ANA ;
+        sh:nodeKind sh:IRI ;
+    ] ;
+    sh:property [
+        sh:path ex:XMA_THC ;
+        sh:nodeKind sh:IRI ;
+    ] .

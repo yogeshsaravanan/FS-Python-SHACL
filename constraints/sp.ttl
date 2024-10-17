@@ -1,0 +1,18 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ex: <http://example.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:PersonShape
+    a sh:NodeShape ;
+    sh:targetClass ex:Person ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "The age must be greater than 18." ;
+        sh:select """
+            SELECT ?this
+            WHERE {
+              ?this ex:age ?age .
+              FILTER (?age <= 18)
+            }
+        """ ;
+    ] .

@@ -1,0 +1,26 @@
+@prefix ns1: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ex: <http://example.org/ex#> .
+
+ex:XMA3
+    ns1:NAME "Test_1"^^xsd:string ;
+    ns1:Description "Validating_shacl"^^xsd:string ;
+    ns1:PSI_Current "5"^^xsd:integer ;
+    ns1:XMA_ANA ex:XMA_ANA_0 ;
+    ns1:XMA_THC ex:XMA_THC_0 .
+
+ex:XMA_ANA_0
+    ns1:Measurement_NO ""^^xsd:string ;
+    ns1:Channel_type ""^^xsd:string ;
+    ns1:Min ""^^xsd:integer ;
+    ns1:Accuracy ""^^xsd:integer ;
+    ns1:Status ""^^xsd:string ;
+    ns1:Config_Delay ""^^xsd:string .
+
+ex:XMA_THC_0
+    ns1:Measurement_NO "1"^^xsd:string ;
+    ns1:Channel_type "Thermocouple K"^^xsd:string ;
+    ns1:Min "20"^^xsd:integer ;
+    ns1:Accuracy "22"^^xsd:integer ;
+    ns1:Status "progress"^^xsd:string ;
+    ns1:Config_Delay "1"^^xsd:string .

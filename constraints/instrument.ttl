@@ -1,0 +1,134 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix : <http://example.org/ex#> .  :XMA3    a sh:NodeShape ;
+sh:targetClass schema:XMA3 ;
+        sh:property [
+                sh:path schema:NAME ;
+                sh:nodekind sh:Literal ;
+                sh:datatype xsd:string ;
+                sh:description "Node Name" ;
+                sh:name "NAME" ;
+                sh:order 2 ;
+                sh:maxLength 12 ;
+                sh:minCount 1 ;
+                sh:maxCount 1 ;
+                sh:message "NAME:Expecting text.";
+            ] ;
+        sh:property [
+                sh:path schema:Description ;
+                sh:nodekind sh:Literal ;
+                sh:datatype xsd:string ;
+                sh:description "Description" ;
+                sh:name "Description" ;
+                sh:order 2 ;
+                sh:maxLength 100 ;
+                sh:minCount 1 ;
+                sh:maxCount 1 ;
+                sh:message "Description:Optional.";
+            ] ;
+        sh:property [
+                sh:path schema:PSI_Voltage ;
+                sh:nodekind sh:Literal ;
+                sh:datatype xsd:integer ;
+                sh:description "PSI_Voltage" ;
+                sh:name "PSI_Voltage" ;
+                sh:order 2 ;
+                sh:maxLength 12 ;
+                sh:minCount 1 ;
+                sh:maxCount 1 ;
+                sh:message "PSI_Voltage:required.";
+            ] ;
+        sh:property [
+                sh:path schema:PSI_Current ;
+                sh:nodekind sh:Literal ;
+                sh:datatype xsd:integer ;
+                sh:description "PSI_Current" ;
+                sh:name "PSI_Current" ;
+                sh:order 2 ;
+                sh:maxLength 12 ;
+                sh:minCount 1 ;
+                sh:maxCount 1 ;
+                sh:message "PSI_Current:required.";
+            ] ;
+        sh:property [
+            sh:path schema:XMA_ANA ;
+            sh:node schema:ParentElementShape ;
+            sh:maxCount 10 ;
+        ] ;
+        sh:property [
+            sh:path schema:XMA_THC ;
+            sh:node schema:ParentElementShape ;
+            sh:maxCount 10 ;
+        ] .
+
+schema:ParentElementShape
+a sh:NodeShape ;
+sh:targetClass schema:ParentElements ;
+    sh:property [
+            sh:path schema:Measurement_NO ;
+            sh:nodekind sh:Literal ;
+            sh:datatype xsd:string ;
+            sh:name "NAME" ;
+            sh:description "Measurement Number" ;
+            sh:order 1 ;
+            sh:minCount 1 ;
+            sh:maxLength 50 ;
+            sh:message "Measurement_NO:Required.";
+        ] ;
+    sh:property [
+            sh:path schema:Channel_type ;
+            sh:nodekind sh:Literal ;
+            sh:datatype xsd:string ;
+            sh:name "Channel_type" ;
+            sh:description "Channel Type" ;
+            sh:minCount 1 ;
+            sh:in ( "Thermocouple K" "Thermocouple J" "Thermocouple N" "Thermocouple T" "Thermocouple C" ) ;
+            sh:order 1 ;
+            sh:maxLength 50 ;
+            sh:message "Measurement_NO:Required.";
+        ] ;
+    sh:property [
+            sh:path schema:Min ;
+            sh:nodekind sh:Literal ;
+            sh:datatype xsd:integer ;
+            sh:name "Min" ;
+            sh:description "min" ;
+            sh:order 1 ;
+            sh:maxLength 50 ;
+            sh:message "Min:Input Range.";
+        ] ;
+    sh:property [
+            sh:path schema:Accuracy ;
+            sh:nodekind sh:Literal ;
+            sh:datatype xsd:integer ;
+            sh:name "Accuracy" ;
+            sh:description "Accuracy" ;
+            sh:order 1 ;
+            sh:maxLength 50 ;
+            sh:message "Accuracy:Measurement Settings.";
+        ] ;
+    sh:property [
+            sh:path schema:Status ;
+            sh:nodekind sh:Literal ;
+            sh:datatype xsd:string ;
+            sh:name "Status" ;
+            sh:description "Status" ;
+            sh:order 1 ;
+            sh:maxLength 50 ;
+            sh:message "MAX:Measurement Settings..";
+        ] ;
+    sh:property [
+            sh:path schema:Config_Delay ;
+            sh:nodekind sh:Literal ;
+            sh:datatype xsd:string ;
+            sh:name "Config_Delay" ;
+            sh:description "Config_Delay" ;
+            sh:order 1 ;
+            sh:maxLength 50 ;
+            sh:message "Config_Delay:Required.";
+        ] .
+    

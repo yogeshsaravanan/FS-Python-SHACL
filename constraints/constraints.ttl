@@ -1,0 +1,40 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ex: <http://example.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# SHACL Node Shape for a Person
+ex:PersonShape
+    a sh:NodeShape ;
+    sh:targetClass ex:Person ;
+    
+    # Constraint on "name" field
+    sh:property [
+        sh:path ex:name ;
+        sh:datatype xsd:string ;
+        sh:minLength 3 ;
+        sh:maxLength 50 ;
+        sh:name "Name" ;
+        sh:description "The name of the person, must be between 3 and 50 characters." ;
+    ] ;
+    
+    # Constraint on "age" field
+    sh:property [
+        sh:path ex:age ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 18 ;
+        sh:maxInclusive 100 ;
+        sh:name "Age" ;
+        sh:description "The age of the person, must be an integer between 18 and 100." ;
+    ] ;
+
+    # Constraint on "email" field
+    sh:property [
+        sh:path ex:email ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$" ;
+        sh:name "Email" ;
+        sh:description "The email of the person, must be a valid email format." ;
+    ] .
+
+# Prefixes
+@prefix ex: <http://example.org/> .
