@@ -1,0 +1,93 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix zds: <http://www.zds-fr.com/zds> .
+@prefix mdl: <http://inetprogram.org/projects/MDL> .
+@prefix ex: <http://example.org/ex#> .
+
+# Define the shape for the mdl:NetworkNode
+ex:NetworkNodeShape a sh:NodeShape ;
+    sh:targetClass mdl:NetworkNode ;
+    sh:property [
+        sh:path zds:Chassis/zds:chassis/zds:Board ;
+        sh:node [
+            sh:property [
+                sh:path zds:Num ;
+                sh:datatype xsd:integer ;
+                sh:minInclusive 0 ;
+                sh:maxInclusive 7 ;
+                sh:message "The zds:Num must be between 0 and 7." ;
+            ] ;
+            sh:property [
+                sh:path zds:BoardType ;
+                sh:in ( "XMA_THC" ) ;
+                sh:message "The BoardType must be 'XMA_THC'." ;
+            ] ;
+            sh:property [
+                sh:path zds:Channel/zds:ChannelType ;
+                sh:in ( "THC" ) ;
+                sh:message "The ChannelType must be 'THC'." ;
+            ] ;
+        ]
+    ] .
+
+# Device constraint related to the port mappings
+ex:PortMappingsShape a sh:NodeShape ;
+    sh:targetClass mdl:NetworkNode ;
+    sh:property [
+        sh:path mdl:portMappings/mdl:portMapping ;
+        sh:message "There should be at most 1 port mapping per device." ;
+        sh:maxCount 1 ;
+    ] .
+
+# Define the shape for the measurements
+ex:MeasurementShape a sh:NodeShape ;
+    sh:targetClass mdl:Measurement ;
+    sh:property [
+        sh:path mdl:measurementType ;
+        sh:in ( "Analog" ) ;
+        sh:message "The measurement type must be 'Analog'." ;
+    ] ;
+    sh:property [
+        sh:path mdl:Requirements/mdl:AnalogAttributes/mdl:SignalRange/mdl:ConditionParameter ;
+        sh:minCount 2 ;
+        sh:message "The SignalRange must have exactly 2 ConditionParameters." ;
+    ] ;
+    sh:property [
+        sh:path mdl:Requirements/mdl:AnalogAttributes/mdl:SignalRange/mdl:UnitsRef ;
+        sh:in ( "celcius" ) ;
+        sh:message "The UnitsRef must be 'celcius'." ;
+    ] ;
+    sh:property [
+        sh:path mdl:Requirements/mdl:AnalogAttributes/mdl:SignalRange/mdl:ConditionOperation ;
+        sh:message "SignalRange condition values must match their operation type." ;
+        sh:sparql [
+            sh:message "SignalRange condition values are inverted."
+            sh:select """
+            SELECT ?this WHERE {
+                ?this mdl:ConditionParameter/mdl:ConditionValueFloat ?cv1 .
+                ?this mdl:ConditionParameter/mdl:ConditionValueFloat ?cv2 .
+                FILTER(?cv1 > ?cv2 && mdl:ConditionOperation != '>=' )
+            }
+            """
+        ] ;
+    ] .
+
+# Define shapes for digital attributes
+ex:DigitalAttributesShape a sh:NodeShape ;
+    sh:targetClass mdl:DigitalAttributes ;
+    sh:property [
+        sh:path mdl:DateRate/mdl:ConditionParameter/mdl:ConditionValueFlex ;
+        sh:in ( "1" "2" "4" "8" "16" "32" "64" "128" ) ;
+        sh:message "The DateRate must be one of the valid values (1, 2, 4, 8, 16, 32, 64, 128)." ;
+    ] ;
+    sh:property [
+        sh:path mdl:DigitalEncoding ;
+        sh:in ( "UnsignedBinary" ) ;
+        sh:message "The DigitalEncoding must be 'UnsignedBinary'." ;
+    ] ;
+    sh:property [
+        sh:path mdl:DataLength/mdl:ConditionParameter/mdl:ConditionValueFlex ;
+        sh:in ( "16" ) ;
+        sh:message "The DataLength must be '16'." ;
+    ] .

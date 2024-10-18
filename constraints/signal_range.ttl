@@ -1,0 +1,27 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix mdl: <http://inetprogram.org/projects/MDL#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Shape definition for mdl:SignalRange validation
+[ 
+    a sh:NodeShape ;
+    sh:targetClass mdl:SignalRange ;
+
+    sh:property [
+        sh:path mdl:ConditionOperation ;
+        sh:message "Condition values must match their operation type." ;
+
+        sh:sparql [
+            sh:message "Check if ConditionValueFloat values are valid." ;
+            sh:select """
+                SELECT ?this WHERE {
+                    ?this mdl:ConditionParameter ?param1 .
+                    ?this mdl:ConditionParameter ?param2 .
+                    ?param1 mdl:ConditionValueFloat ?cv1 .
+                    ?param2 mdl:ConditionValueFloat ?cv2 .
+                    FILTER(?cv1 > ?cv2)  # Ensure cv1 is greater than cv2
+                }
+            """ ;
+        ] ;
+    ] ;
+] .
