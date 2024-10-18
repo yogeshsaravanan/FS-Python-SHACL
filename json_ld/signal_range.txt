@@ -1,0 +1,20 @@
+{
+    "@context": {
+      "mdl": "http://inetprogram.org/projects/MDL",
+      "schema": "http://schema.org/",
+      "xsd": "http://www.w3.org/2001/XMLSchema#"
+    },
+    "@id": "http://example.org/measurement1",
+    "@type": "mdl:Measurement",
+    "mdl:Requirements": {
+      "mdl:AnalogAttributes": {
+        "mdl:SignalRange": {
+          "mdl:ConditionParameter": [
+            { "mdl:ConditionValueFloat": 1500 },
+            { "mdl:ConditionValueFloat": 1300 }
+          ],
+          "mdl:ConditionOperation": ">="
+        }
+      }
+    }
+}

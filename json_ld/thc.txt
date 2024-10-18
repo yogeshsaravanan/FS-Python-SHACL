@@ -1,0 +1,61 @@
+{
+    "@context": {
+      "schema": "http://schema.org/",
+      "mdl": "http://inetprogram.org/projects/MDL",
+      "zds": "http://www.zds-fr.com/zds",
+      "xsd": "http://www.w3.org/2001/XMLSchema#"
+    },
+    "@graph": [
+      {
+        "@id": "http://example.org/networkNode1",
+        "@type": "mdl:NetworkNode",
+        "zds:Chassis": {
+          "@id": "http://example.org/chassis1",
+          "zds:chassis": {
+            "@id": "http://example.org/board1",
+            "zds:Num": 3,
+            "zds:BoardType": "XMA_THC",
+            "zds:Channel": {
+              "@id": "http://example.org/channel1",
+              "zds:ChannelType": "THC"
+            }
+          }
+        }
+      },
+      {
+        "@id": "http://example.org/measurement1",
+        "@type": "mdl:Measurement",
+        "mdl:measurementType": "Analog",
+        "mdl:Requirements": {
+          "@id": "http://example.org/analogAttributes1",
+          "mdl:AnalogAttributes": {
+            "@id": "http://example.org/signalRange1",
+            "mdl:SignalRange": {
+              "mdl:ConditionParameter": [
+                { "mdl:conditionValueFloat": 25.0 },
+                { "mdl:conditionValueFloat": 50.0 }
+              ],
+              "mdl:UnitsRef": "celcius",
+              "mdl:ConditionOperation": ">="
+            }
+          }
+        }
+      },
+      {
+        "@id": "http://example.org/digitalAttributes1",
+        "@type": "mdl:DigitalAttributes",
+        "mdl:DateRate": {
+          "mdl:ConditionParameter": {
+            "mdl:ConditionValueFlex": "16"
+          }
+        },
+        "mdl:DigitalEncoding": "UnsignedBinary",
+        "mdl:DataLength": {
+          "mdl:ConditionParameter": {
+            "mdl:ConditionValueFlex": "16"
+          }
+        }
+      }
+    ]
+  }
+  
